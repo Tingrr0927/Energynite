@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>抽籤</title>
     <style>
+        body {
+            overflow: hidden;
+        }
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -23,10 +26,10 @@
             font-size: 20px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
         }
         .bottle:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(-3deg);
             background-color: #e0e0e0;
         }
         .label {
@@ -39,60 +42,102 @@
             text-align: center;
             font-size: 18px;
         }
+        .hidden {
+            display: none;
+        }
+        .center {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .random-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #7db7db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        /* LOGO動畫效果 */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .logo {
+            animation: slideIn 0.5s forwards;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div>
-            <div class="bottle" onclick="drawFortune(1)">1</div>
-            <div class="label">延</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(2)">2</div>
-            <div class="label">定</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(3)">3</div>
-            <div class="label">入</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(4)">4</div>
-            <div class="label">毀</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(5)">5</div>
-            <div class="label">波</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(6)">6</div>
-            <div class="label">昇</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(7)">7</div>
-            <div class="label">墜</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(8)">8</div>
-            <div class="label">平</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(9)">9</div>
-            <div class="label">取</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(10)">10</div>
-            <div class="label">累</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(11)">11</div>
-            <div class="label">滯</div>
-        </div>
-        <div>
-            <div class="bottle" onclick="drawFortune(12)">12</div>
-            <div class="label">轉</div>
-        </div>
+    <!-- 首頁 -->
+    <div id="home-page" class="center">
+        <img src="C:\Users\gansu\OneDrive\文件\GitHub\Energynite\favicon.png" alt="LOGO" class="logo" style="max-width: 150px; margin-bottom: 20px;">
     </div>
-    <div class="result" id="result"></div>
+
+    <div id="home-button-container" class="center">
+        <button class="random-btn" onclick="goToDetailPage()">抽取1~12</button>
+    </div>
+
+    <!-- 詳細頁面 -->
+    <div id="detail-page" class="hidden">
+        <div class="container">
+            <div>
+                <div class="bottle" onclick="drawFortune(1)">1</div>
+                <div class="label">延</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(2)">2</div>
+                <div class="label">定</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(3)">3</div>
+                <div class="label">入</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(4)">4</div>
+                <div class="label">毀</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(5)">5</div>
+                <div class="label">波</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(6)">6</div>
+                <div class="label">昇</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(7)">7</div>
+                <div class="label">墜</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(8)">8</div>
+                <div class="label">平</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(9)">9</div>
+                <div class="label">取</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(10)">10</div>
+                <div class="label">累</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(11)">11</div>
+                <div class="label">滯</div>
+            </div>
+            <div>
+                <div class="bottle" onclick="drawFortune(12)">12</div>
+                <div class="label">轉</div>
+            </div>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
 
     <script>
         const fortunes = {
@@ -109,6 +154,15 @@
             11: ["達成願望", "有很多知識", "世界和平", "考上公職", "身體更好", "另一半不要惹我生氣", "不看別人臉色", "沒有"],
             12: ["沒有", "考上公職", "有土地", "快樂", "先生業績超好領很多獎金", "世界平安", "全部收圓", "善知識傳播"]
         };
+
+        function goToDetailPage() {
+            // 隨機選擇 1 到 12 的數字
+            const randomPage = Math.floor(Math.random() * 12) + 1;
+            alert(`你抽到的是 ${randomPage}，進入詳細頁面！`);
+            document.getElementById('home-page').classList.add('hidden');
+            document.getElementById('home-button-container').classList.add('hidden');
+            document.getElementById('detail-page').classList.remove('hidden');
+        }
 
         function drawFortune(number) {
             const selectedFortunes = fortunes[number];
